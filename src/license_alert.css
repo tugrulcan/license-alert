@@ -1,0 +1,29 @@
+
+.flash.license_alert.warning {
+    font-size: 17px;
+    background-color: rgba(203, 36, 49, 0.77);
+    color: white;
+}
+.flash.license_alert.limit_exceed {
+    font-size: 17px;
+    background-color: #ff9800;
+    color: white;
+}
+
+.flash.license_alert.closebtn {
+    font-size: 22px;
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color:transparent;
+    padding: 1px;
+    border: 3px transparent;
+    line-height: 20px;
+}
+
+.flash.license_alert.closebtn:hover {
+    color: black;
+}

@@ -1,28 +1,36 @@
-
+/*
+<div class="alert info">
+    <span class="closebtn">&times;</span>
+<strong>Info!</strong> Indicates a neutral informative change or action.
+</div>
+    */
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if(document.getElementById("license_warning_ext") == null){
-        if(request.license == "limitExceed"){
+        if(request.license === "limitExceed"){
             var htmlWarning = "<div class='flash-messages'>" +
-                "<div id='license_warning_ext'class='flash' style ='background-color: rgba(220,218,61,0.77);color:#fafbfc;'><strong>" +
-                "Github Licenses API limit exceed!</strong></div>";
+                "<div id='license_warning_ext'class='flash license_alert limit_exceed'>" +
+                "<span class='flash license_alert closebtn'>&times;</span>" +
+                "<strong>Github Licenses API limit exceed!</strong></div>";
             $(".repository-content").prepend(htmlWarning);
         }
 
 
-        if(request.license == "notFound")
+        if(request.license === "notFound")
         {
             var htmlWarning = "<div class='flash-messages'>" +
-                "<div id='license_warning_ext'class='flash' style ='background-color: rgba(203, 36, 49, 0.77);color:#fafbfc;'><strong>" +
-                "No License found!</strong></div>";
+                "<div id='license_warning_ext'class='flash license_alert warning'>" +
+                "<span class='flash license_alert closebtn'>&times;</span>" +
+                "<strong>No License found!</strong></div>";
             $(".repository-content").prepend(htmlWarning);
         }
 
 
-        else if(request.license.featured == false)
+        else if(request.license.featured === false)
         {
             var htmlWarning = "<div class='flash-messages'>" +
-                            "<div id='license_warning_ext'class='flash' style ='background-color: rgba(203, 36, 49, 0.77);color:#fafbfc;'><strong>" +
-                             "License: " + request.license.spdx_id.toString() + "</strong></div></div>";
+                "<div id='license_warning_ext'class='flash license_alert warning'>" +
+                "<span class='flash license_alert closebtn'>&times;</span>" +
+                "<strong>License: " + request.license.spdx_id.toString() + "</strong></div></div>";
             $(".repository-content").prepend(htmlWarning);
 
 
@@ -30,4 +38,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
 });
 chrome.runtime.sendMessage({action:"show"});
-//alert("activated!");
+
+$(function () {
+    $(".flash.license_alert.closebtn").click(function () {
+        $(this).parent().fadeToggle();
+    });
+});
