@@ -1,9 +1,3 @@
-/*
-<div class="alert info">
-    <span class="closebtn">&times;</span>
-<strong>Info!</strong> Indicates a neutral informative change or action.
-</div>
-    */
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if(document.getElementById("license_warning_ext") == null){
         if(request.license === "limitExceed"){
