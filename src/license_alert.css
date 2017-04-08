@@ -4,6 +4,7 @@
     background-color: rgba(203, 36, 49, 0.77);
     color: white;
 }
+
 .flash.license_alert.limit_exceed {
     font-size: 17px;
     background-color: #ff9800;
@@ -18,7 +19,7 @@
     float: right;
     cursor: pointer;
     transition: 0.3s;
-    background-color:transparent;
+    background-color: transparent;
     padding: 1px;
     border: 3px transparent;
     line-height: 20px;

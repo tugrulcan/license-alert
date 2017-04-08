@@ -1,38 +1,42 @@
 {
-  "manifest_version":2,
-
-  "name":"License Alert for GitHub",
-  "description":"Adds license alert functionality",
-  "version":"0.1",
-
-  "icons": { "16": "icon16.png",
-             "48": "icon48.png",
-             "128": "icon128.png" },
-
-
-  "page_action":{
-    "default_icon":"icon.png",
-    "default_title":"License Alert for GitHub"
+  "manifest_version": 2,
+  "name": "License Alert for GitHub",
+  "description": "Adds license alert functionality",
+  "version": "0.1",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
   },
-  "background":{
-    "scripts":["src/eventPage.js"],
-    "persistent":true
+  "page_action": {
+    "default_icon": "icon.png",
+    "default_title": "License Alert for GitHub"
   },
-
-  "content_scripts":[
+  "background": {
+    "scripts": [
+      "src/eventPage.js"
+    ],
+    "persistent": true
+  },
+  "content_scripts": [
     {
-      "matches":["https://github.com/*"],
-      "css":["src/license_alert.css"],
-      "js":["src/jquery-3.2.0.min.js", "src/license_alert_contentscript.js"]
+      "matches": [
+        "https://github.com/*"
+      ],
+      "css": [
+        "src/license_alert.css"
+      ],
+      "js": [
+        "src/jquery-3.2.0.min.js",
+        "src/license_alert_contentscript.js"
+      ]
     }
   ],
-
-  "permissions":[
+  "permissions": [
     "tabs",
     "storage",
     "webNavigation",
     "https://github.com/*",
     "https://api.github.com/*"
   ]
-
 }
