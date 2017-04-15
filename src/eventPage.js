@@ -1,4 +1,5 @@
-function f1(request, sender, sendResponse) {
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action == "show") {
         chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
             chrome.pageAction.show(tabs[0].id);
@@ -81,9 +82,8 @@ function f1(request, sender, sendResponse) {
             });
         });
     }
-}
 
-chrome.runtime.onMessage.addListener(f1);
+});
 
 chrome.tabs.onActivated.addListener(function (activeInfo) {
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
