@@ -13,14 +13,14 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             var license_dict = null;
 
 
-            chrome.storage.sync.get("license_dict", function (items) {
+            chrome.storage.sync.get(["license_dict", "api_token"], function (items) {
                 if (items.license_dict) {
                     license_dict = items.license_dict;
                     if (license_dict[owner_repo] != undefined) {
                         license = license_dict[owner_repo];
                         chrome.tabs.sendMessage(tabs[0].id, {license: license});
                     } else {
-                        var apiUrl = "https://api.github.com/repos/" + owner_repo + "/license";
+                        var apiUrl = "https://api.github.com/repos/" + owner_repo + "/license?access_token=" + items.api_token;
                         var json = null;
                         var xhr = new XMLHttpRequest();
 
@@ -50,7 +50,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                     }
                 } else {
                     license_dict = {};
-                    var apiUrl = "https://api.github.com/repos/" + owner_repo + "/license";
+                    var apiUrl = "https://api.github.com/repos/" + owner_repo + "/license?access_token=" + items.api_token;
                     var json = null;
                     var xhr = new XMLHttpRequest();
 
@@ -107,7 +107,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
                     chrome.tabs.sendMessage(tabs[0].id, {license: license});
                 } else {
                     //alert(owner_repo +  " license not found api call!");
-                    var apiUrl = "https://api.github.com/repos/" + owner_repo + "/license";
+                    var apiUrl = "https://api.github.com/repos/" + owner_repo + "/license?access_token=" + items.api_token;
                     var json = null;
                     var xhr = new XMLHttpRequest();
 
@@ -142,7 +142,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
             } else {
                 license_dict = {};
                 //alert(owner_repo +  " license not found api call!");
-                var apiUrl = "https://api.github.com/repos/" + owner_repo + "/license";
+                var apiUrl = "https://api.github.com/repos/" + owner_repo + "/license?access_token=" + items.api_token;
                 var json = null;
                 var xhr = new XMLHttpRequest();
 
@@ -201,7 +201,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
                                 license = license_dict[owner_repo];
                                 chrome.tabs.sendMessage(tabs[0].id, {license: license});
                             } else {
-                                var apiUrl = "https://api.github.com/repos/" + owner_repo + "/license";
+                                var apiUrl = "https://api.github.com/repos/" + owner_repo + "/license?access_token=" + items.api_token;
                                 var json = null;
                                 var xhr = new XMLHttpRequest();
 
@@ -231,7 +231,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
                             }
                         } else {
                             license_dict = {};
-                            var apiUrl = "https://api.github.com/repos/" + owner_repo + "/license";
+                            var apiUrl = "https://api.github.com/repos/" + owner_repo + "/license?access_token=" + items.api_token;
                             var json = null;
                             var xhr = new XMLHttpRequest();
 

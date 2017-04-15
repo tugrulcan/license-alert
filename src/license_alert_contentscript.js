@@ -28,7 +28,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         }
     }
 });
-
+chrome.storage.sync.get(null, function (data) { console.info(data) });
 /*
  print all
  --> chrome.storage.sync.get(null, function (data) { console.info(data) });
@@ -63,7 +63,7 @@ $(function () {
 
         var token = $("#la-api-token-input").val();
         if (token) {
-            chrome.storage.sync.set({"api_token": token}, function () {
+            chrome.storage.sync.set({"api_token": token.trim()}, function () {
                 alert('API token saved!');
                 location.reload();
             });
