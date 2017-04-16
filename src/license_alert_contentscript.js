@@ -1,34 +1,53 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (document.getElementById("license_alert") == null) {
-        if (request.license === "limitExceed") {
+       /* if (request.license === "limitExceed") {
             var htmlWarning = "<div class='flash-messages'>" +
                 "<div id='license_limit_exceed'class='flash license_alert limit_exceed'>" +
                 "<span class='flash license_alert closebtn'>&times;</span>" +
                 "<strong>Github Licenses API limit exceed!</strong></div>";
             $(".repository-content").prepend(htmlWarning);
-        }
+        }*/
 
-        if (request.license === "notFound") {
+        if (request.repoInfo.license === "notFound") {
             var htmlWarning = "<div class='flash-messages'>" +
                 "<div id='license_not_found'class='flash license_alert warning'>" +
                 "<span class='flash license_alert closebtn'>&times;</span>" +
-                "<strong>No License found!</strong></div>";
+                "<strong>No License!</strong></div>";
             $(".repository-content").prepend(htmlWarning);
-        }
-
-
-        else if (request.license.featured === false) {
+        } else if (request.repoInfo.license.featured === false) {
             var htmlWarning = "<div class='flash-messages'>" +
                 "<div id='license_alert'class='flash license_alert warning'>" +
                 "<span class='flash license_alert closebtn'>&times;</span>" +
-                "<strong>License: " + request.license.spdx_id.toString() + "</strong></div></div>";
+                "<strong>License: " + request.repoInfo.license.spdx_id.toString() + "</strong></div></div>";
             $(".repository-content").prepend(htmlWarning);
 
 
         }
     }
 });
-chrome.storage.sync.get(null, function (data) { console.info(data) });
+
+//-----------------------------------------------
+
+/*
+var owner_repo = "KenanAtmaca/KAlertBox";
+chrome.storage.sync.get([owner_repo, "api_token"], function (items) {
+    console.log("items yazdırıyoruz");
+    console.log(items[owner_repo]);
+});
+chrome.storage.sync.get(["license_dict", "api_token"], function (items) {
+    if (items.license_dict) {
+
+        license_dict = items.license_dict;
+        if (license_dict[owner_repo] != undefined) {
+            license = license_dict[owner_repo];
+            console.log("license: " + license);
+
+            chrome.storage.sync.set({[owner_repo]: license}, function () {});
+        }}});*/
+
+
+//-----------------------------------------------
+
 /*
  print all
  --> chrome.storage.sync.get(null, function (data) { console.info(data) });
@@ -40,7 +59,22 @@ chrome.storage.sync.get(null, function (data) { console.info(data) });
  console.error(error);
  }
  });
- */
+ --> combined :D
+
+ chrome.storage.sync.get(null, function (data) { console.info(data) });
+ console.log("Clear!");
+ chrome.storage.sync.clear(function() {
+ var error = chrome.runtime.lastError;
+ if (error) {
+ console.error(error);
+ }
+ });
+ console.log("Cleared!");
+ chrome.storage.sync.get(null, function (data) { console.info(data) });
+*/
+
+
+
 $(function () {
     chrome.storage.sync.get("api_token", function (items) {
         if (items.api_token === undefined) {
@@ -63,6 +97,7 @@ $(function () {
 
         var token = $("#la-api-token-input").val();
         if (token) {
+            chrome.storage.sync.clear();
             chrome.storage.sync.set({"api_token": token.trim()}, function () {
                 alert('API token saved!');
                 location.reload();
@@ -78,3 +113,4 @@ $(function () {
 
 chrome.runtime.sendMessage({action: "show"});
 
+chrome.storage.sync.get(null, function (data) { console.info(data) });
