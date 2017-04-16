@@ -28,25 +28,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
 //-----------------------------------------------
 
-/*
-var owner_repo = "KenanAtmaca/KAlertBox";
-chrome.storage.sync.get([owner_repo, "api_token"], function (items) {
-    console.log("items yazdırıyoruz");
-    console.log(items[owner_repo]);
-});
-chrome.storage.sync.get(["license_dict", "api_token"], function (items) {
-    if (items.license_dict) {
-
-        license_dict = items.license_dict;
-        if (license_dict[owner_repo] != undefined) {
-            license = license_dict[owner_repo];
-            console.log("license: " + license);
-
-            chrome.storage.sync.set({[owner_repo]: license}, function () {});
-        }}});*/
-
-
-//-----------------------------------------------
 
 /*
  print all

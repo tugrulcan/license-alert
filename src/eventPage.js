@@ -52,11 +52,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                 chrome.storage.sync.get([owner_repo, "api_token"], function (items) {
                     if (items[owner_repo]) { //if the repo info already exist
                         repoInfo = items[owner_repo];
-                        alert(JSON.stringify(repoInfo.license));
 
                         var now = new Date();
                         var weeks = Math.abs(Math.round((repoInfo.controlDate-now)/ 604800000));
-                        alert("weeks: " + parseInt(weeks));
                         if (weeks >= 3) { // if repoInfo is expired
 
                             var updated_repoInfo = {};
@@ -68,7 +66,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                                 if (this.status === 404) {
                                     // license not found
                                     updated_repoInfo.license = "notFound";
-                                    updated_repoInfo.controlDate = new Date();
+                                    updated_repoInfo.controlDate = (new Date()).getTime();
                                     updated_repoInfo.ignore = false;
 
                                     chrome.storage.sync.set({[owner_repo]: updated_repoInfo}, function () {
@@ -81,7 +79,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                                 if (xhr.readyState == 4) {
                                     json = JSON.parse(xhr.response);
                                     updated_repoInfo.license =  json.license;
-                                    updated_repoInfo.controlDate = new Date();
+                                    updated_repoInfo.controlDate = (new Date()).getTime();
                                     updated_repoInfo.ignore = false;
                                     chrome.storage.sync.set({[owner_repo]: updated_repoInfo}, function () {
                                     });
@@ -89,9 +87,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                                 }
                             }
                             xhr.send();
-                            //--------------------
-
-
                         } else if (repoInfo.ignore === false) {
                             chrome.tabs.sendMessage(tabs[0].id, {repoInfo: repoInfo});
                         }
@@ -106,7 +101,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                             if (this.status === 404) {
                                 // license not found
                                 new_repoInfo.license = "notFound";
-                                new_repoInfo.controlDate = new Date();
+                                new_repoInfo.controlDate = (new Date()).getTime();
                                 new_repoInfo.ignore = false;
 
                                 chrome.storage.sync.set({[owner_repo]: new_repoInfo }, function () {
@@ -119,7 +114,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                             if (xhr.readyState == 4) {
                                 json = JSON.parse(xhr.response);
                                 new_repoInfo.license =  json.license;
-                                new_repoInfo.controlDate = new Date();
+                                new_repoInfo.controlDate = (new Date()).getTime();
                                 new_repoInfo.ignore = false;
                                 chrome.storage.sync.set({[owner_repo]: new_repoInfo }, function () {
                                 });
