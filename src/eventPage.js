@@ -1,33 +1,4 @@
-/*function getRepoInfo(owner_repo, api_token) {
-    var new_repoInfo = {};
-    var apiUrl = "https://api.github.com/repos/" + owner_repo + "/license?access_token=" + api_token;
-    var json = null;
-    var xhr = new XMLHttpRequest();
 
-    xhr.onload = function () {
-        if (this.status === 404) {
-            // license not found
-            new_repoInfo.license = "notFound";
-            new_repoInfo.controlDate = moment();
-            new_repoInfo.ignore = false;
-
-            return new_repoInfo;
-        }
-    }
-    xhr.open("GET", apiUrl, true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            json = JSON.parse(xhr.response);
-            new_repoInfo.license =  json.license;
-            new_repoInfo.controlDate = moment();
-            new_repoInfo.ignore = false;
-            alert(JSON.stringify(new_repoInfo));
-            return new_repoInfo;
-        }
-    }
-    xhr.send();
-
-}*/
 function getOwnerRepoFromUrl(url) {
     url = url.split('/');
     var owner = url[3].toString();
