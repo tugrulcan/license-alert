@@ -1,60 +1,53 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (document.getElementById("license_alert") == null) {
-       /* if (request.license === "limitExceed") {
-            var htmlWarning = "<div class='flash-messages'>" +
-                "<div id='license_limit_exceed'class='flash license_alert limit_exceed'>" +
-                "<span class='flash license_alert closebtn'>&times;</span>" +
-                "<strong>Github Licenses API limit exceed!</strong></div>";
-            $(".repository-content").prepend(htmlWarning);
-        }*/
+    console.log("req: ");
+    console.log(request.repoInfo.license);
 
-        if (request.repoInfo.license === "notFound") {
-            var htmlWarning = "<div class='flash-messages'>" +
-                "<div id='license_not_found'class='flash license_alert warning'>" +
-                "<span class='flash license_alert closebtn'>&times;</span>" +
-                "<strong>No License!</strong></div>";
-            $(".repository-content").prepend(htmlWarning);
-        } else if (request.repoInfo.license.featured === false) {
-            var htmlWarning = "<div class='flash-messages'>" +
-                "<div id='license_alert'class='flash license_alert warning'>" +
-                "<span class='flash license_alert closebtn'>&times;</span>" +
-                "<strong>License: " + request.repoInfo.license.spdx_id.toString() + "</strong></div></div>";
-            $(".repository-content").prepend(htmlWarning);
+    console.log("document.getElementById('la-license') === null: ");
+    console.log(document.getElementById("la-license") === null);
+
+    $(function () {
+        if (document.getElementById("la-license") === null) {
+            console.log("inside document.getElementById('la-ignore') === null");
+
+            /* if (request.repoInfo === "limitExceed") {
+             }*/
+
+            if (request.repoInfo.license === "notFound") {
+                console.log("inside request.repoInfo.license === 'notFound'");
+
+                var htmlWarning = "<span itemscope='' itemtype='http://schema.org/ListItem' itemprop='itemListElement' id='la-license'>" +
+                    "<a class='js-selected-navigation-item reponav-item' >" +
+                    "<svg aria-hidden='true' class='octicon octicon-law' height='16' version='1.1' viewBox='0 0 14 16' width='14'>" + "" +
+                    "<path fill-rule='evenodd' d='M7 4c-.83 0-1.5-.67-1.5-1.5S6.17 1 7 1s1.5.67 1.5 1.5S7.83 4 7 4zm7 6c0 1.11-.89 2-2 2h-1c-1.11 0-2-.89-2-2l2-4h-1c-.55 0-1-.45-1-1H8v8c.42 0 1 .45 1 1h1c.42 0 1 .45 1 1H3c0-.55.58-1 1-1h1c0-.55.58-1 1-1h.03L6 5H5c0 .55-.45 1-1 1H3l2 4c0 1.11-.89 2-2 2H2c-1.11 0-2-.89-2-2l2-4H1V5h3c0-.55.45-1 1-1h4c.55 0 1 .45 1 1h3v1h-1l2 4zM2.5 7L1 10h3L2.5 7zM13 10l-1.5-3-1.5 3h3z'></path></svg>" +
+                    "\nNo License!\n" +
+                    "</span>";
 
 
+                $(".js-selected-navigation-item.reponav-item").last().after(htmlWarning);
+
+            } else if (request.repoInfo.license.featured === false) {
+                console.log("inside request.repoInfo.license.featured === false");
+
+                var htmlWarning = "<span itemscope='' itemtype='http://schema.org/ListItem' itemprop='itemListElement' id='la-license'>" +
+                    "<a class='js-selected-navigation-item reponav-item' >" +
+                    "<svg aria-hidden='true' class='octicon octicon-law' height='16' version='1.1' viewBox='0 0 14 16' width='14'>" + "" +
+                    "<path fill-rule='evenodd' d='M7 4c-.83 0-1.5-.67-1.5-1.5S6.17 1 7 1s1.5.67 1.5 1.5S7.83 4 7 4zm7 6c0 1.11-.89 2-2 2h-1c-1.11 0-2-.89-2-2l2-4h-1c-.55 0-1-.45-1-1H8v8c.42 0 1 .45 1 1h1c.42 0 1 .45 1 1H3c0-.55.58-1 1-1h1c0-.55.58-1 1-1h.03L6 5H5c0 .55-.45 1-1 1H3l2 4c0 1.11-.89 2-2 2H2c-1.11 0-2-.89-2-2l2-4H1V5h3c0-.55.45-1 1-1h4c.55 0 1 .45 1 1h3v1h-1l2 4zM2.5 7L1 10h3L2.5 7zM13 10l-1.5-3-1.5 3h3z'></path></svg>" +
+                    "\n" + request.repoInfo.license.spdx_id.toString() + "\n" +
+                    "</span>";
+
+                $(htmlWarning).insertAfter($(".js-selected-navigation-item.reponav-item").last());
+            }
         }
-    }
+    });
+
 });
-
-//-----------------------------------------------
-
 
 /*
  print all
  --> chrome.storage.sync.get(null, function (data) { console.info(data) });
-
  delete all
- --> chrome.storage.sync.clear(function() {
- var error = chrome.runtime.lastError;
- if (error) {
- console.error(error);
- }
- });
- --> combined :D
-
- chrome.storage.sync.get(null, function (data) { console.info(data) });
- console.log("Clear!");
- chrome.storage.sync.clear(function() {
- var error = chrome.runtime.lastError;
- if (error) {
- console.error(error);
- }
- });
- console.log("Cleared!");
- chrome.storage.sync.get(null, function (data) { console.info(data) });
-*/
-
-
+ --> chrome.storage.sync.clear();
+ */
 
 $(function () {
     chrome.storage.sync.get("api_token", function (items) {
@@ -66,7 +59,8 @@ $(function () {
                     "<td><button type='submit' class='btn btn-primary' id='la_submit_token'>Save</button></td>" +
                     "</tr></table></div> ";
 
-                $(".repository-content").prepend(htmlWarning);
+                $("#js-repo-pjax-container").prepend(htmlWarning);
+
             }
         }
     });
@@ -86,12 +80,14 @@ $(function () {
         }
     });
 
+    $("js-repo-pjax-container").change(function () {
+        alert("changed!");
+    });
 
-    $(".flash.license_alert.closebtn").click(function () {
+    $("#la-ignore").click(function () {
         $(this).parent().fadeToggle();
     });
 });
 
 chrome.runtime.sendMessage({action: "show"});
 
-chrome.storage.sync.get(null, function (data) { console.info(data) });

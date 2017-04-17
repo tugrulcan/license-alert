@@ -36,6 +36,7 @@
     "tabs",
     "storage",
     "webNavigation",
+    "notifications",
     "https://github.com/*",
     "https://api.github.com/*"
   ]
