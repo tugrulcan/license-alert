@@ -293,31 +293,22 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 
 chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
     if (details.frameId === 0) {
-        //alert(1);
         console.log("213");
         // Fires only when details.url === currentTab.url
-        //alert(JSON.stringify(details));
         chrome.tabs.get(details.tabId, function (tab) {
-            // alert(2);
-            // alert("details: " + JSON.stringify(details));
-            // alert("tab: " + JSON.stringify(tab));
 
             if (tab.url != details.url) {
                 chrome.pageAction.show(tab.id);
-                // alert(3);
                 var owner_repo = getOwnerRepoFromUrl(tab.url);
                 var repoInfo = null;
                 if (owner_repo) {
                     chrome.storage.sync.get([owner_repo, "api_token"], function (items) {
-                        // alert(4);
                         if (items[owner_repo]) { //if the repo info already exist
-                            // alert(5);
                             repoInfo = items[owner_repo];
 
                             var now = new Date();
                             var weeks = Math.abs(Math.round((repoInfo.controlDate - now) / 604800000));
                             if (weeks >= 3) { // if repoInfo is expired
-                                // alert(6);
                                 var updated_repoInfo = {};
                                 var apiUrl = "https://api.github.com/repos/" + owner_repo + "/license?access_token=" + items.api_token;
                                 var json = null;
@@ -329,7 +320,6 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
                                         updated_repoInfo.license = "notFound";
                                         updated_repoInfo.controlDate = (new Date()).getTime();
                                         updated_repoInfo.ignore = false;
-                                        // alert(7);
                                         chrome.storage.sync.set({[owner_repo]: updated_repoInfo}, function () {
                                         });
                                         chrome.tabs.sendMessage(tab.id, {repoInfo: updated_repoInfo});
@@ -342,7 +332,6 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
                                         updated_repoInfo.license = json.license;
                                         updated_repoInfo.controlDate = (new Date()).getTime();
                                         updated_repoInfo.ignore = false;
-                                        // alert(8);
                                         chrome.storage.sync.set({[owner_repo]: updated_repoInfo}, function () {
                                         });
                                         chrome.tabs.sendMessage(tab.id, {repoInfo: updated_repoInfo});
@@ -350,12 +339,10 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
                                 }
                                 xhr.send();
                             } else if (repoInfo.ignore === false) {
-                                // alert(9);
                                 chrome.tabs.sendMessage(tab.id, {repoInfo: repoInfo});
                             }
                         }
                         else {
-                            // alert(10);
                             var new_repoInfo = {};
                             var apiUrl = "https://api.github.com/repos/" + owner_repo + "/license?access_token=" + items.api_token;
                             var json = null;
@@ -363,7 +350,6 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
 
                             xhr.onload = function () {
                                 if (this.status === 404) {
-                                    // alert(11);
                                     // license not found
                                     new_repoInfo.license = "notFound";
                                     new_repoInfo.controlDate = (new Date()).getTime();
@@ -378,7 +364,6 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
                             xhr.open("GET", apiUrl, true);
                             xhr.onreadystatechange = function () {
                                 if (xhr.readyState == 4) {
-                                    // alert(12);
                                     json = JSON.parse(xhr.response);
                                     new_repoInfo.license = json.license;
                                     new_repoInfo.controlDate = (new Date()).getTime();

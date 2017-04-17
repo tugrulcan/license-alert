@@ -13,6 +13,9 @@
     "default_title": "License Alert for GitHub"
   },
   "background": {
+    "matches": [
+      "https://github.com/*"
+    ],
     "scripts": [
       "src/eventPage.js"
     ],
