@@ -46,8 +46,11 @@ function showRepoInfo(tab_id) {
                 if (items[owner_repo]) { //if the repo info already exist
                     repoInfo = items[owner_repo];
                     let now = new Date();
-                    let weeks = Math.abs(Math.round((repoInfo.controlDate - now) / 604800000));
-                    if (weeks >= 3) { // if repoInfo is expired
+                    let duration_in_mil = repoInfo.controlDate - now;
+                    let days = Math.abs(Math.floor(duration_in_mil / (1000 * 24 * 60 * 60)));
+
+                    if (days > 1) { // if repoInfo is expired
+                        console.log("expired!");
                         getRepoInfo(owner_repo, items.api_token, tab.id);
                     } else if (repoInfo.ignore === false) {
                         chrome.tabs.sendMessage(tab.id, {repoInfo: repoInfo});
