@@ -1,8 +1,7 @@
 function getOwnerRepoFromUrl(url) {
-    console.log(url);
     url = url.split('/');
-    let owner = url[3].toString();
-    let repo = url[4].toString();
+    let owner = url[3];
+    let repo = url[4];
     let owner_repo = null;
 
     if (owner !== undefined && repo !== undefined) {
@@ -64,8 +63,13 @@ function showRepoInfo(tab_id) {
 }
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-    if (changeInfo.status.toString() === "complete") {
-        console.log("chrome.tabs.onUpdated!!!");
-        showRepoInfo(tabId);
+    if (changeInfo.status === "complete") {
+        //NOTE: "matches" in manifest.json is not effecting, so -unfortunately- check hostname here.
+        let url = new URL(tab.url);
+        let domain = url.hostname;
+        if(domain === "github.com")
+        {
+            showRepoInfo(tabId);
+        }
     }
 });

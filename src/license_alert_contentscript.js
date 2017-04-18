@@ -1,20 +1,7 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    console.log("req: ");
-    console.log(request.repoInfo);
-
-    console.log("document.getElementById('la-license') === null: ");
-    console.log(document.getElementById("la-license") === null);
-
     $(function () {
         if (document.getElementById("la-license") === null) {
-            console.log("inside document.getElementById('la-ignore') === null");
-
-            /* if (request.repoInfo === "limitExceed") {
-             }*/
-
             if (request.repoInfo.license === "Not Found") {
-                console.log("inside request.repoInfo.license === 'notFound'");
-
                 var htmlWarning = "<span itemscope='' itemtype='http://schema.org/ListItem' itemprop='itemListElement' id='la-license'>" +
                     "<a class='js-selected-navigation-item reponav-item' style='background-color: rgba(255, 0, 0, 0.2);' >" +
                     "<svg aria-hidden='true' class='octicon octicon-law' height='16' version='1.1' viewBox='0 0 14 16' width='14'>" + "" +
@@ -26,8 +13,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                 $(".js-selected-navigation-item.reponav-item").last().after(htmlWarning);
 
             } else if (request.repoInfo.license.featured === false) {
-                console.log("inside request.repoInfo.license.featured === false");
-
                 var htmlWarning = "<span itemscope='' itemtype='http://schema.org/ListItem' itemprop='itemListElement' id='la-license'>" +
                     "<a class='js-selected-navigation-item reponav-item' style='background-color: rgba(255, 0, 0, 0.2);' >" +
                     "<svg aria-hidden='true' class='octicon octicon-law' height='16' version='1.1' viewBox='0 0 14 16' width='14'>" + "" +
@@ -80,14 +65,8 @@ $(function () {
         }
     });
 
-    $("js-repo-pjax-container").change(function () {
-        alert("changed!");
-    });
-
     $("#la-ignore").click(function () {
         $(this).parent().fadeToggle();
     });
 });
-
-chrome.runtime.sendMessage({action: "show"});
 

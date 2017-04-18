@@ -14,20 +14,18 @@
   },
   "background": {
     "matches": [
-      "*://github.com/*/*",
-      "*://*.github.com/*/*"
+      "*://github.com/*/*"
     ],
     "scripts": [
       "src/jquery-3.2.0.min.js",
       "src/eventPage.js"
     ],
-    "persistent": true
+    "persistent": false
   },
   "content_scripts": [
     {
       "matches": [
-        "*://github.com/*/*",
-        "*://*.github.com/*/*"
+        "*://github.com/*/*"
       ],
       "css": [
         "src/license_alert.css"
@@ -41,7 +39,6 @@
   "permissions": [
     "tabs",
     "storage",
-    "*://github.com/*/*",
-    "*://*.github.com/*/*"
+    "*://github.com/*/*"
   ]
 }
