@@ -32,8 +32,7 @@ function getRepoInfo(owner_repo, api_token, tab_id) {
                 chrome.tabs.sendMessage(tab_id, {repoInfo: repoInfo});
                 return repoInfo; // not returning!!!
             }
-        }
-    );
+        });
 }
 
 function showRepoInfo(tab_id) {

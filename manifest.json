@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "License Alert for GitHub",
   "description": "Adds license alert functionality",
-  "version": "0.1",
+  "version": "0.2",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
