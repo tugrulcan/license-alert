@@ -1,7 +1,7 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     $(function () {
         if (document.getElementById("la-license") === null) {
-            if (request.repoInfo.license === "Not Found") {
+            /*if (request.repoInfo.license === "Not Found") {
                 var htmlWarning = "<span itemscope='' itemtype='http://schema.org/ListItem' itemprop='itemListElement' id='la-license'>" +
                     "<a class='js-selected-navigation-item reponav-item' style='background-color: rgba(255, 0, 0, 0.2);' >" +
                     "<svg aria-hidden='true' class='octicon octicon-law' height='16' version='1.1' viewBox='0 0 14 16' width='14'>" + "" +
@@ -12,7 +12,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
                 $(".js-selected-navigation-item.reponav-item").last().after(htmlWarning);
 
-            } else if (request.repoInfo.license.featured === false) {
+            } else */
+            if (request.repoInfo.license.featured === false) {
                 var htmlWarning = "<span itemscope='' itemtype='http://schema.org/ListItem' itemprop='itemListElement' id='la-license'>" +
                     "<a class='js-selected-navigation-item reponav-item' style='background-color: rgba(255, 0, 0, 0.2);' >" +
                     "<svg aria-hidden='true' class='octicon octicon-law' height='16' version='1.1' viewBox='0 0 14 16' width='14'>" + "" +
