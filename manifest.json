@@ -14,7 +14,8 @@
   },
   "background": {
     "matches": [
-      "*://github.com/*/*"
+      "*://github.*/*/*",
+      "*://*.github.*/*/*"
     ],
     "scripts": [
       "src/jquery-3.2.0.min.js",
@@ -25,7 +26,8 @@
   "content_scripts": [
     {
       "matches": [
-        "*://github.com/*/*"
+        "*://github.*/*/*",
+        "*://*.github.*/*/*"
       ],
       "css": [
         "src/license_alert.css"
@@ -39,6 +41,7 @@
   "permissions": [
     "tabs",
     "storage",
-    "*://github.com/*/*"
+    "*://github.*/*/*",
+    "*://*.github.*/*/*"
   ]
 }
