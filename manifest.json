@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "License Alert for GitHub",
   "description": "Adds license alert functionality",
-  "version": "0.2",
+  "version": "0.3",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -14,8 +14,8 @@
   },
   "background": {
     "matches": [
-      "*://github.*/*/*",
-      "*://*.github.*/*/*"
+      "*://github.com/*/*",
+      "*://*.github.com/*/*"
     ],
     "scripts": [
       "src/jquery-3.2.0.min.js",
@@ -26,8 +26,8 @@
   "content_scripts": [
     {
       "matches": [
-        "*://github.*/*/*",
-        "*://*.github.*/*/*"
+        "*://github.com/*/*",
+        "*://*.github.com/*/*"
       ],
       "css": [
         "src/license_alert.css"
@@ -41,7 +41,7 @@
   "permissions": [
     "tabs",
     "storage",
-    "*://github.*/*/*",
-    "*://*.github.*/*/*"
+    "*://github.com/*/*",
+    "*://*.github.com/*/*"
   ]
 }
