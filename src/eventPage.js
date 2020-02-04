@@ -13,11 +13,14 @@ function getOwnerRepoFromUrl(url) {
 function getRepoInfo(owner_repo, api_token, tab_id) {
 
     let repoInfo = {};
-    let apiUrl = "https://api.github.com/repos/" + owner_repo + "/license?access_token=" + api_token;
+    let apiUrl = "https://api.github.com/repos/" + owner_repo + "/license";
     let json = null;
     $.ajax({
             type: "GET",
             url: apiUrl,
+            headers: {
+                'Authorization':'token ' + api_token,
+            },
             error: function (xhr, statusText) {
                 repoInfo.license = xhr.responseJSON.message;
             },
